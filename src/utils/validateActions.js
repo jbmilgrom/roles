@@ -1,0 +1,1 @@
+module.exports = (validActions, subjects) => subjects.filter(action => validActions.indexOf(action) === -1);
