@@ -1,0 +1,14 @@
+html
+    head
+        title= title
+    body
+        h2 Roles by action
+        each roleByAction in rolesByActions
+            div= roleByAction[0]
+                ul
+                  each role in roleByAction[1]
+                      li= role
+        h2 Roles
+        ul
+            each role in roles
+              li= role

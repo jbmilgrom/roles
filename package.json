@@ -1,0 +1,15 @@
+{
+  "name": "roles-server",
+  "version": "1.0.0",
+  "description": "What are my roles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jmilgrom",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "pug": "^3.0.2"
+  }
+}
