@@ -1,5 +1,5 @@
-const actionsByRoles = require("../assets/roles.json");
-const secureActions = require("../assets/secureActions.json");
+const actionsByRoles = require("../../assets/roles.json");
+const secureActions = require("../../assets/secureActions.json");
 
 const roles = Object.keys(actionsByRoles);
 
