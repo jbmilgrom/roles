@@ -6,6 +6,8 @@ html
         ul
           each role in desiredRoles
               li= role
+          else
+              div None: no roles supports all actions
         h3 How we got there (roles by action)
         each roleByAction in rolesByActions
             div= roleByAction[0]
