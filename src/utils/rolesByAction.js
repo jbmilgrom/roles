@@ -7,7 +7,6 @@ module.exports = (secureActions, actionsByRoles) => {
       rolesByAction[action] = [];
     }
 
-    console.log("action", action);
     for (const role of roles) {
       const actionsInRole = actionsByRoles[role];
       if (!actionsInRole) {
