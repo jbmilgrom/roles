@@ -3,16 +3,18 @@ const app = express();
 const port = 3030;
 const intersection = require("./utils/intersection");
 const computeRolesByAction = require("./utils/rolesByAction");
+const getRoleData = require("./resources/rolesByActions");
 
 app.set("view engine", "pug");
 
-const rolesByActions = computeRolesByAction();
+const SNAPCHAT3_ROLES_CHECKER_CLI_PATH = "/Users/jmilgrom/Desktop/snap/snapchat3/cli/roles-checker";
+const FILE_NAME = "/Users/jmilgrom/Desktop/hack/roles-server/assets/generated.json";
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/roles", (req, res) => {
+app.get("/roles", async (req, res) => {
   const secureActionsQueryParam = req.query.secureActions;
   if (!secureActionsQueryParam) {
     res.send("'secureActions' query param is required");
@@ -29,15 +31,17 @@ app.get("/roles", (req, res) => {
 
   console.info(`Secure actions requested ${secureActions}`);
 
-  res.render("rolesByAction", {
-    rolesByActions: secureActions.map((action) => [
-      action,
-      rolesByActions[action],
-    ]),
-    desiredRoles: intersection(
-      ...secureActions.map((action) => rolesByActions[action])
-    ),
-  });
+  try {
+    const roleData = await getRoleData(SNAPCHAT3_ROLES_CHECKER_CLI_PATH, FILE_NAME);
+    const rolesByActions = computeRolesByAction(roleData.secureActions, roleData.map);
+    res.render("rolesByAction", {
+      rolesByActions: secureActions.map((action) => [action, rolesByActions[action]]),
+      desiredRoles: intersection(...secureActions.map((action) => rolesByActions[action])),
+    });
+  } catch (e) {
+    console.error(e);
+    res.send(`Error: ${e}`);
+  }
 });
 
 app.listen(port, () => {

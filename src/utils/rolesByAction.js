@@ -1,15 +1,13 @@
-const actionsByRoles = require("../../assets/roles.json");
-const secureActions = require("../../assets/secureActions.json");
+module.exports = (secureActions, actionsByRoles) => {
+  const roles = Object.keys(actionsByRoles);
 
-const roles = Object.keys(actionsByRoles);
-
-module.exports = () => {
   const rolesByAction = {};
-  for (const action in secureActions) {
+  for (const action of secureActions) {
     if (!rolesByAction[action]) {
       rolesByAction[action] = [];
     }
 
+    console.log("action", action);
     for (const role of roles) {
       const actionsInRole = actionsByRoles[role];
       if (!actionsInRole) {
