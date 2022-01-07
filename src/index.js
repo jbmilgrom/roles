@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 3030;
+const intersection = require("./utils/intersection");
 const computeRolesByAction = require("./utils/rolesByAction");
 
 app.set("view engine", "pug");
@@ -33,6 +34,9 @@ app.get("/roles", (req, res) => {
       action,
       rolesByActions[action],
     ]),
+    desiredRoles: intersection(
+      ...secureActions.map((action) => rolesByActions[action])
+    ),
   });
 });
 

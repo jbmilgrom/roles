@@ -1,1 +1,4 @@
-module.exports = (...lists) => Array.from(new Set([...lists]));
+module.exports = (...lists) => {
+  const list = lists.reduce((list, next) => list.concat(next), []);
+  return Array.from(new Set(list));
+};
