@@ -17,17 +17,6 @@ module.exports = (path, fileName) =>
 
     const gradlew = exec(`./gradlew -q run >> ${fileName}`, { cwd: path });
 
-    gradlew.stdout.on("data", async () => {
-      console.log(`Data written to file ${fileName}`);
-      // try {
-      //   const data = await fs.readFile(fileName, 'utf8');
-      //   resolve(JSON.parse(data));
-      // } catch (e) {
-      //   console.warn("loading file or parsing file failed", e);
-      //   reject("loading file or parsing file failed");
-      // }
-    });
-
     gradlew.stderr.on("data", (data) => {
       console.error(data);
       reject(`stderr: ${data}`);
